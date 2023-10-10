@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  userName  String
+  password  String
+  firstName String
+  lastName  String
+  email     String    @unique
+  mobile    String?   @unique
+
+  Orders    Orders[]
+  Cart      Cart[]
+  Address   Address[]
+}
+
+model Orders {
+  id           Int            @id @default(autoincrement())
+  date         DateTime       @default(now())
+  totalPrice   Int            @default(0)
+  userId       Int
+  user         User           @relation(fields: [userId], references: [id])
+  status       checkStatus
+  slip         String?
+  orderProduct orderProduct[]
+}
+
+model Cart {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+  bookId Int
+  book   Book @relation(fields: [bookId], references: [id])
+  quantity  Int
+}
+
+model orderProduct {
+  id       Int    @id @default(autoincrement())
+  bookId   Int
+  book     Book   @relation(fields: [bookId], references: [id])
+  orderId  Int
+  order    Orders @relation(fields: [orderId], references: [id])
+  quantity Int
+}
+
+model Address {
+  id       Int    @id @default(autoincrement())
+  city     String
+  country  String
+  province String
+  zipcode  Int
+  userId   Int
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model Book {
+  id           Int            @id @default(autoincrement())
+  price        Int            @default(0)
+  description  String
+  author       String
+  bookName     String
+  orderProduct orderProduct[]
+  Cart         Cart[]
+}
+
+enum checkStatus {
+  Confirm
+  notConfirm
+}
