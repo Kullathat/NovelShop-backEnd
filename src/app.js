@@ -1,9 +1,21 @@
-require('dotenv').config
-const express = require('express');
+require('dotenv').config()
 
-const app = express()
+const express = require('express');
+const cors = require('cors')
+
+const authRoute = require('./route/auth-router')
+const notFoundMiddleware = require('./middlewares/not-founded')
+
+const app = express();
+
+
+app.use(cors())
 app.use(express.json())
-app.use(express.static('public'))
+
+app.use('/auth',authRoute)
+app.use(notFoundMiddleware)
+
+
 
 
 const PORT = process.env.PORT || '5000';

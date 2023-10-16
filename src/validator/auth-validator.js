@@ -1,24 +1,26 @@
+const { defaults } = require('joi');
 const Joi = require('joi')
 
 const registerSchema = Joi.object({
-    firstName: Joi.string().trim(),
-    lastName: Joi.string().trim(),
-    emailOrMobile: Joi.alternatives([
-        Joi.string().email(),
-        Joi.string().pattern(/^[0-9]{10}$/)
-    ]).required().strip(),
+    userName: Joi.string().trim().required(),
     password: Joi.string()
         .pattern(/^[a-zA-Z0-9]{6,30}$/)
         .trim()
-        .required(),
-    mobile: Joi.forbidden().when('emailOrmobile',{
-        is: Joi.string().pattern(/^[0-9]{10}$/),
-        then: Joi.string().default(Joi.ref('emailOrMobile'))
-     }),
-     email: Joi.forbidden().when('emailOrMobile',{
-        is: Joi.string().email(),
-        then: Joi.string().default(Joi.ref('emailOrMobile'))
-     })
+        .required(), 
+    firstName: Joi.string().trim().required(),
+    lastName: Joi.string().trim().required(),
+    mobile: Joi.string().trim().required(),
+    email: Joi.string().email().required(),
 });
 
 exports.registerSchema = registerSchema;
+
+const loginSchema = Joi.object({
+    userName: Joi.string().trim().required(),
+    password: Joi.string()
+    .pattern(/^[a-zA-Z0-9]{6,30}$/)
+    .trim()
+    .required()
+});
+
+exports.loginSchema = loginSchema; 

@@ -18,7 +18,6 @@ model User {
   lastName  String
   email     String    @unique
   mobile    String?   @unique
-
   Orders    Orders[]
   Cart      Cart[]
   Address   Address[]
@@ -36,12 +35,12 @@ model Orders {
 }
 
 model Cart {
-  id     Int  @id @default(autoincrement())
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-  bookId Int
-  book   Book @relation(fields: [bookId], references: [id])
-  quantity  Int
+  id       Int  @id @default(autoincrement())
+  userId   Int
+  user     User @relation(fields: [userId], references: [id])
+  bookId   Int
+  book     Book @relation(fields: [bookId], references: [id])
+  quantity Int
 }
 
 model orderProduct {
@@ -69,6 +68,7 @@ model Book {
   description  String
   author       String
   bookName     String
+  bookImage    String
   orderProduct orderProduct[]
   Cart         Cart[]
 }
