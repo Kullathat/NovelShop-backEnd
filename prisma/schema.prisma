@@ -18,6 +18,7 @@ model User {
   lastName  String
   email     String    @unique
   mobile    String?   @unique
+  isAdmin   Boolean?
   Orders    Orders[]
   Cart      Cart[]
   Address   Address[]

@@ -1,6 +1,6 @@
 const { defaults } = require('joi');
 const Joi = require('joi')
-
+ 
 const registerSchema = Joi.object({
     userName: Joi.string().trim().required(),
     password: Joi.string()

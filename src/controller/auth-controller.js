@@ -1,4 +1,3 @@
-
 const bcrypt = require('bcryptjs');
 const { registerSchema, loginSchema } = require("../validator/auth-validator");
 const jwt = require('jsonwebtoken');
@@ -36,9 +35,7 @@ exports.login = async (req, res, next) => {
     }
     const user = await prisma.user.findFirst({
       where: {
-        OR: [
-          { userName: value.userName }
-        ]
+           userName: value.userName 
       }
     });
     if (!user) {

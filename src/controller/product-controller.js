@@ -21,8 +21,8 @@ exports.product = async (req, res, next) => {
 exports.addCart = async (req, res, next) => {
     try {
         const { id } = req.user
-        const { quantity , bookId } = req.body
-
+        const { bookId } = req.body
+                
         const previousProduct = await prisma.cart.findFirst({
             where: {
                 bookId,

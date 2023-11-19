@@ -5,14 +5,17 @@ const authRoute = require('./route/auth-router')
 const notFoundMiddleware = require('./middlewares/not-founded')
 const addressRoute = require('./route/address-router')
 const productRoute = require('./route/Cart-router')
-const orderRoute = require('./route/Order-router')
+const orderRoute = require('./route/Order-router');
+const morgan = require('morgan');
+
 
 const app = express();
 
 
 app.use(cors())
 app.use(express.json())
-
+app.use(morgan('dev'))
+app.use(express.static('public'));
 
 app.use('/auth',authRoute)
 app.use('/me',addressRoute)
