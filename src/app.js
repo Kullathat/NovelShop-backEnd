@@ -7,6 +7,7 @@ const addressRoute = require('./route/address-router')
 const productRoute = require('./route/Cart-router')
 const orderRoute = require('./route/Order-router');
 const morgan = require('morgan');
+const adminRoute = require('./route/admin-route')
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use('/auth',authRoute)
 app.use('/me',addressRoute)
 app.use('/item',productRoute)
 app.use('/payment',orderRoute)
+app.use('/admin',adminRoute)
 app.use(notFoundMiddleware)
 
 

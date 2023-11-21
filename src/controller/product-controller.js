@@ -84,22 +84,5 @@ exports.deleteItem = async (req, res, next) => {
         next(err)
     }
 }
-exports.addItem = async(req,res,next) => {
-    try {
-        const { price,description,author,bookName,bookImage } = req.body
-           const addItem =  await prisma.book.create({
-                data: {
-                    bookImage,
-                    price: +price,
-                    bookName,
-                    description,
-                    author
-                }
-            })
-            res.status(201).json({addItem})
-        }  catch (err) {
-            console.log(err)
-            next(err)
-        }  
-    }
+
 

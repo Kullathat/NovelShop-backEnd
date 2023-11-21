@@ -18,10 +18,11 @@ model User {
   lastName  String
   email     String    @unique
   mobile    String?   @unique
-  isAdmin   Boolean?
   Orders    Orders[]
   Cart      Cart[]
   Address   Address[]
+  role      Role    @default(user)
+
 }
 
 model Orders {
@@ -69,7 +70,7 @@ model Book {
   description  String
   author       String
   bookName     String
-  bookImage    String
+  bookImage    String?
   orderProduct orderProduct[]
   Cart         Cart[]
 }
@@ -77,4 +78,8 @@ model Book {
 enum checkStatus {
   Confirm
   notConfirm
+}
+enum Role {
+  user
+  admin
 }
